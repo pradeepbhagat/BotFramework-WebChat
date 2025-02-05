@@ -15,6 +15,8 @@ type ReduxState = {
   sendTypingIndicator: boolean;
   shouldSpeakIncomingActivity: boolean;
   continuousListening: boolean;
+  currentSpeechWebChatView: string;
+  botSpeaking: boolean;
 };
 
 export type { ReduxState };

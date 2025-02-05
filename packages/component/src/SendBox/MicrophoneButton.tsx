@@ -28,7 +28,9 @@ const {
   useStartDictate,
   useStopDictate,
   useUIState,
-  useContinuousListening
+  useContinuousListening,
+  useSetCurrentSpeechWebChatView,
+  useSetBotSpeaking
 } = hooks;
 
 const ROOT_STYLE = {
@@ -58,7 +60,8 @@ function useMicrophoneButtonClick(): () => void {
   const stopDictate = useStopDictate();
   const setDictateState = useSetDictateState();
   const continuousListening = useContinuousListening();
-
+  const setCurrentSpeechWebChatView = useSetCurrentSpeechWebChatView();
+  const setBotSpeaking = useSetBotSpeaking();
   const { speechSynthesis, SpeechSynthesisUtterance } = webSpeechPonyfill || {};
 
   const [primeSpeechSynthesis] = useState(() =>
@@ -75,6 +78,11 @@ function useMicrophoneButtonClick(): () => void {
   // TODO: [P2] We should revisit this function later
   //       The click() logic seems local to the component, but may not be generalized across all implementations.
   return useCallback(() => {
+    if (continuousListening) {
+      setCurrentSpeechWebChatView('speech');
+      setShouldSpeakIncomingActivity(false);
+      setBotSpeaking(false);
+    }
     if (dictateState === DictateState.WILL_START) {
       setShouldSpeakIncomingActivity(false);
     } else if (dictateState === DictateState.DICTATING) {
@@ -100,7 +108,9 @@ function useMicrophoneButtonClick(): () => void {
     speechSynthesis,
     SpeechSynthesisUtterance,
     startDictate,
-    stopDictate
+    stopDictate,
+    setCurrentSpeechWebChatView,
+    setBotSpeaking
   ]);
 }
 

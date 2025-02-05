@@ -112,7 +112,8 @@ const Dictation = ({ onError }) => {
 
   return (
     <DictateComposer
-      continuous={continuousListening}
+      // continuous={continuousListening}
+      extra={{ continuous: continuousListening }}
       lang={speechLanguage}
       onDictate={handleDictate}
       onError={handleError}

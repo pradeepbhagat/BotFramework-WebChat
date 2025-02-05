@@ -13,6 +13,8 @@ import sendMessage from './actions/sendMessage';
 import sendMessageBack from './actions/sendMessageBack';
 import sendPostBack from './actions/sendPostBack';
 import setContinuousListening from './actions/setContinuousListening';
+import setCurrentSpeechWebChatView from './actions/setCurrentSpeechWebChatView';
+import setBotSpeaking from './actions/setBotSpeaking';
 import setDictateInterims from './actions/setDictateInterims';
 import setDictateState from './actions/setDictateState';
 import setLanguage from './actions/setLanguage';
@@ -109,6 +111,8 @@ export {
   sendMessageBack,
   sendPostBack,
   setContinuousListening,
+  setCurrentSpeechWebChatView,
+  setBotSpeaking,
   setDictateInterims,
   setDictateState,
   setLanguage,

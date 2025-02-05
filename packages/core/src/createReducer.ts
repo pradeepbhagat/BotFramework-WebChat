@@ -2,6 +2,8 @@ import { combineReducers } from 'redux';
 
 import connectivityStatus from './reducers/connectivityStatus';
 import continuousListening from './reducers/continuousListening';
+import currentSpeechWebChatView from './reducers/currentSpeechWebChatView';
+import botSpeaking from './reducers/botSpeaking';
 import createActivitiesReducer from './reducers/createActivitiesReducer';
 import createInternalReducer from './reducers/createInternalReducer';
 import createNotificationsReducer from './reducers/createNotificationsReducer';
@@ -40,6 +42,8 @@ export default function createReducer(ponyfill: GlobalScopePonyfill) {
     suggestedActions,
     suggestedActionsOriginActivity,
     typing: createTypingReducer(ponyfill),
-    continuousListening
+    continuousListening,
+    currentSpeechWebChatView,
+    botSpeaking
   });
 }

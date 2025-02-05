@@ -8,7 +8,7 @@ import SayAlt from './SayAlt';
 
 // TODO: [P1] Interop between Babel and esbuild.
 const Say = 'default' in ReactSay ? ReactSay.default : ReactSay;
-const { useMarkActivityAsSpoken, useStyleOptions, useVoiceSelector } = hooks;
+const { useMarkActivityAsSpoken, useStyleOptions, useVoiceSelector, useSetBotSpeaking } = hooks;
 
 // TODO: [P4] Consider moving this feature into BasicActivity
 //       And it has better DOM position for showing visual spoken text
@@ -21,10 +21,12 @@ const Speak: FC<SpeakProps> = ({ activity }) => {
   const [{ showSpokenText }] = useStyleOptions();
   const markActivityAsSpoken = useMarkActivityAsSpoken();
   const selectVoice = useVoiceSelector(activity);
+  const setBotSpeaking = useSetBotSpeaking();
 
   const markAsSpoken = useCallback(() => {
+    setBotSpeaking(false);
     markActivityAsSpoken(activity);
-  }, [activity, markActivityAsSpoken]);
+  }, [activity, markActivityAsSpoken, setBotSpeaking]);
 
   const singleLine: false | string = useMemo(() => {
     if (activity.type !== 'message') {
@@ -32,6 +34,16 @@ const Speak: FC<SpeakProps> = ({ activity }) => {
     }
 
     const { attachments = [], speak, text } = activity;
+
+    // return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-IN">
+    //     <voice name="en-US-AvaMultilingualNeural">
+    //       <mstts:express-as style="cheerful" role="YoungAdultFemale">
+    //         <prosody rate="5%">
+    //           ${text ?? speak}
+    //         </prosody>
+    //       </mstts:express-as>
+    //     </voice>
+    //   </speak>`;
 
     return [
       speak || text,
@@ -46,13 +58,28 @@ const Speak: FC<SpeakProps> = ({ activity }) => {
   const speechSynthesisUtterance: false | SpeechSynthesisUtterance | undefined =
     activity.type === 'message' && activity.channelData?.speechSynthesisUtterance;
 
+  const handleOnStartSpeaking = useCallback(() => {
+    setBotSpeaking(true);
+  }, [setBotSpeaking]);
+
   return (
     !!activity && (
       <React.Fragment>
         {speechSynthesisUtterance ? (
-          <SayUtterance onEnd={markAsSpoken} onError={markAsSpoken} utterance={speechSynthesisUtterance} />
+          <SayUtterance
+            onEnd={markAsSpoken}
+            onError={markAsSpoken}
+            onStart={handleOnStartSpeaking}
+            utterance={speechSynthesisUtterance}
+          />
         ) : (
-          <Say onEnd={markAsSpoken} onError={markAsSpoken} text={singleLine} voice={selectVoice} />
+          <Say
+            onEnd={markAsSpoken}
+            onError={markAsSpoken}
+            onStart={handleOnStartSpeaking}
+            text={singleLine}
+            voice={selectVoice}
+          />
         )}
         {!!showSpokenText && <SayAlt speak={singleLine} />}
       </React.Fragment>

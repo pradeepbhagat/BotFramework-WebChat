@@ -69,6 +69,8 @@ export type WebChatAPIContextType = {
   sendTypingIndicator?: boolean;
   setDictateInterims?: (interims: string[]) => void;
   setDictateState?: (dictateState: number) => void;
+  setCurrentSpeechWebChatView?: (view: string) => void;
+  setBotSpeaking?: (botSpeaking: boolean) => void;
   setNotification?: (notification: Notification) => void;
   setSendBox?: (value: string) => void;
   setSendBoxAttachments?: (...args: Parameters<typeof setSendBoxAttachments>) => void;

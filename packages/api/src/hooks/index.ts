@@ -71,6 +71,10 @@ import useUserID from './useUserID';
 import useUsername from './useUsername';
 import useVoiceSelector from './useVoiceSelector';
 import useContinuousListening from './useContinuousListening';
+import useSetCurrentSpeechWebChatView from './useSetCurrentSpeechWebChatView';
+import useCurrentSpeechWebChatView from './useCurrentSpeechWebChatView';
+import useSetBotSpeaking from './useSetBotSpeaking';
+import useBotSpeaking from './useBotSpeaking';
 
 export {
   useActiveTyping,
@@ -145,5 +149,9 @@ export {
   useUserID,
   useUsername,
   useVoiceSelector,
-  useContinuousListening
+  useContinuousListening,
+  useCurrentSpeechWebChatView,
+  useSetCurrentSpeechWebChatView,
+  useSetBotSpeaking,
+  useBotSpeaking
 };
