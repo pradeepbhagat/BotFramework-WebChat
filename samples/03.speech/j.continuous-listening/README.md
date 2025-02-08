@@ -82,7 +82,3 @@ Interrupt the bot while it speaks with another question.
 The bot should stop speaking.
 
 The bot initiates processing again, and a new response is displayed.
-
-```
-
-```
