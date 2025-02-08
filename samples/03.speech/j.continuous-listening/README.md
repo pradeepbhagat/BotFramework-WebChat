@@ -17,8 +17,8 @@ A simple page with Web Chat offers Continuous Listening, Barge-In functionality,
 
 # Update the directline endpoint and cogCredentials
 
-    1.	Set the token endpoint variable to the URL obtained from the Direct Line Speech channel in Microsoft Copilot Studio.
-    2.	Configure cogCredentials with a JSON object containing the region and subscriptionKey. Below is a sample format. The subscriptionKey refers to the Azure Subscription key:
+1. Set the token endpoint variable to the URL obtained from the Direct Line Speech channel in Microsoft Copilot Studio.
+2. Configure cogCredentials with a JSON object containing the region and subscriptionKey. Below is a sample format. The subscriptionKey refers to the Azure Subscription key:
 
 {
 "region": "",
