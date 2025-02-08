@@ -22,9 +22,10 @@ A simple page with Web Chat offers Continuous Listening, Barge-In functionality,
 
 ```json
 {
-"region": "",
-"subscriptionKey": ""
+   "region": "",
+   "subscriptionKey": ""
 }
+```
 
 # Things to try out
 
@@ -81,4 +82,7 @@ Interrupt the bot while it speaks with another question.
 The bot should stop speaking.
 
 The bot initiates processing again, and a new response is displayed.
+
+```
+
 ```
