@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Web Chat: Integrate with React</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      For simplicity and code clarity, we are using Babel and React from unpkg.com.
+    -->
+    <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone@7.8.7/babel.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+
+    <script crossorigin src="https://pradeepbhagat.github.io/webchatcdn/js/webchat.js"></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      #webchat {
+        height: auto;
+        width: auto;
+        position: fixed;
+        bottom: 0;
+        right: 10px;
+        bottom: 10px;
+      }
+      .chatBot.webchat__surface {
+        min-height: 500px;
+        max-height: 500px;
+        width: 350px;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="webchat" role="main"></div>
+    <script type="text/babel" data-presets="es2015,react,stage-3">
+      (async function () {
+        //update the endpoint and cogCredentials with your own values
+        const endpoint = '';
+        const cogCredentials = {};
+        const res = await fetch(endpoint, { method: 'GET' });
+
+        const { token } = await res.json();
+        const { ReactSpeechWebChat } = window.WebChat;
+
+        const webSpeechPonyfillFactory = await window.WebChat.createCognitiveServicesSpeechServicesPonyfillFactory({
+          credentials: cogCredentials
+        });
+
+        const composerProps = {
+          directLine: window.WebChat.createDirectLine({ token }),
+          webSpeechPonyfillFactory,
+          enableContinuousListening: true,
+          className: 'chatBot'
+        };
+
+        window.ReactDOM.render(<ReactSpeechWebChat {...composerProps} />, document.getElementById('webchat'));
+
+        document.querySelector('#webchat > *').focus();
+      })().catch(err => console.error(err));
+    </script>
+  </body>
+</html>
